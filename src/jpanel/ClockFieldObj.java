@@ -1,9 +1,7 @@
 package jpanel;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +31,28 @@ public class ClockFieldObj  extends JPanel  {
 	private  double r = 210.0;
 	private int xCoordinate;
 	private int yCoordinate;
+	private int xFocusCoordinate;
+
+	public void setxFocusCoordinate(int xFocusCoordinate) {
+		System.out.println("set x xFocusCoordinate is..." + xFocusCoordinate);
+		this.xFocusCoordinate = xFocusCoordinate;
+	}
+
+	public void setyFocusCoordinate(int yFocusCoordinate) {
+		System.out.println("set y yFocusCoordinate is..." + yFocusCoordinate);
+		this.yFocusCoordinate = yFocusCoordinate;
+	}
+
+	public int getyFocusCoordinate() {
+		return yFocusCoordinate;
+	}
+
+	public int getxFocusCoordinate() {
+		return xFocusCoordinate;
+	}
+
+	private int yFocusCoordinate;
+
 	private Image image;
 	private BufferedImage originalImage;
 	private ArrayList<CircleObj> randomDots = new ArrayList<CircleObj>();
@@ -44,7 +64,10 @@ public class ClockFieldObj  extends JPanel  {
 	public boolean startAnimation = false;
 	private boolean isPressed = false;
 	private long releaseTime;
-	private BufferedImage pokemonBall;
+
+	private boolean stopWatch = false;
+
+	private CircleObj stopWatchCircle;
 
 	public long getReleaseTime() {
 		return releaseTime;
@@ -67,6 +90,8 @@ public class ClockFieldObj  extends JPanel  {
 		this.setBackground(new Color(0,0,0));
 		this.xCoordinate = 250;
 		this.yCoordinate = 250;
+		this.xFocusCoordinate = this.xCoordinate;
+		this.yFocusCoordinate = this.yCoordinate;
 
 		try {
 			this.image = ImageIO.read(new File("./img/onePiece.jpg"));
@@ -74,14 +99,9 @@ public class ClockFieldObj  extends JPanel  {
 			ex.printStackTrace();
 		}
 
-		try {
-			this.pokemonBall = ImageIO.read(new File("./img/pokemonBall.png"));
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-		;
 
 		this.initialTime = System.currentTimeMillis();
+		this.stopWatchCircle = new CircleObj(r*0.15 , 0 , (int) (this.xCoordinate + 100), (int) (this.yCoordinate + 80));
 
 	}
 
@@ -97,8 +117,6 @@ public class ClockFieldObj  extends JPanel  {
 		paintPin(screen);
 		//painTimeString(screen);
 		drawRandomDots(screen);
-
-		screen.drawImage(this.pokemonBall, 250, 250, this);
 	}
 
 	public void paintFrame(Graphics screen) {
@@ -133,6 +151,40 @@ public class ClockFieldObj  extends JPanel  {
 			screen.setFont(font);
 			screen.drawString(new Integer(i+1).toString(), _x, _y);
 		}
+
+		Graphics2D g2 = (Graphics2D) screen;
+
+		int k;
+		for (int i = 0; i < 360; i += 30) {
+			if (i % 30 == 0) {
+				k = 8;
+			} else {
+				k = 12;
+			}
+
+			CircleObj c1 = new CircleObj(r*0.2 - k, i,this.xCoordinate,this.yCoordinate);
+			double x1 = c1.calcXPos();
+			double y1 = c1.calcYPos();
+
+			CircleObj c2 = new CircleObj(r*0.2, i,this.xCoordinate,this.yCoordinate);
+			double x2 = c2.calcXPos();
+			double y2 = c2.calcYPos();
+
+			screen.setColor(Color.BLUE);
+
+
+			g2.setStroke(new BasicStroke(3));
+			g2.draw(new Line2D.Float((int) (x1 + this.xCoordinate + 100), (int) (y1 + this.yCoordinate + 80), (int) (x2 + this.xCoordinate + 100),
+					(int) (y2 + this.yCoordinate + 80)));
+		}
+
+		if(this.stopWatch){
+			this.stopWatchCircle.setDeg((this.stopWatchCircle.getDeg()+2)%360);
+		}
+
+		g2.setStroke(new BasicStroke(3));
+		g2.draw(new Line2D.Float(this.xCoordinate + 100,this.yCoordinate + 80,(int)(this.xCoordinate + 100 + this.stopWatchCircle.calcXPos()),(int)(this.yCoordinate + 80 + this.stopWatchCircle.calcYPos())));
+
 	}
 
 
@@ -178,21 +230,21 @@ public class ClockFieldObj  extends JPanel  {
 		randomDots.clear();
 		for(int i=0;i<20;i++){
 			double randomDeg = Math.random()*360+1;
-			CircleObj objs = new CircleObj(r*Math.random(),randomDeg,this.xCoordinate,this.yCoordinate);
+			CircleObj objs = new CircleObj(r*Math.random(),randomDeg,this.xFocusCoordinate,this.yFocusCoordinate);
 			randomDots.add(objs);
 		}
 
 		randomTriangles.clear();
 		for(int i=0;i<30;i++){
 			double randomDeg = Math.random()*360+1;
-			TriangleObj objs = new TriangleObj(r*Math.random(),randomDeg,10,this.xCoordinate,this.yCoordinate);
+			TriangleObj objs = new TriangleObj(r*Math.random(),randomDeg,10,this.xFocusCoordinate,this.yFocusCoordinate);
 			randomTriangles.add(objs);
 		}
 
 		randomRectangles.clear();
 		for(int i=0;i<30;i++){
 			double randomDeg = Math.random()*360+1;
-			RectObj objs = new RectObj(r*Math.random(),randomDeg,3,13,this.xCoordinate,this.yCoordinate);
+			RectObj objs = new RectObj(r*Math.random(),randomDeg,3,13,this.xFocusCoordinate,this.yFocusCoordinate);
 			randomRectangles.add(objs);
 		}
 
@@ -244,6 +296,15 @@ public class ClockFieldObj  extends JPanel  {
 
 	public void setyCoordinate(int yCoordinate) {
 		this.yCoordinate = yCoordinate;
+	}
+
+	public void setStopWatch(boolean stopWatch) {
+		this.stopWatch = stopWatch;
+	}
+
+	public boolean isStopWatch() {
+
+		return stopWatch;
 	}
 
 

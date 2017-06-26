@@ -27,15 +27,10 @@ public class execute {
 
 		frm.add(cf,BorderLayout.CENTER);
 
-		  frm.add( new JPanel(){{
-              add( new JLabel("Center"));
-              setBackground(new Color(0,0,0,0));
-          }} , BorderLayout.CENTER );
-
+		button.addMouseListener(new CustomiseMouseListener(cf));
+		cf.addMouseListener(new CustomiseMouseListener(cf));
 
 		frm.add(button,BorderLayout.SOUTH);
-
-		button.addMouseListener(new CustomiseMouseListener(cf));
 
 		frm.setSize(500, 550);
 		frm.setVisible(true);
@@ -84,6 +79,7 @@ class CustomiseMouseListener implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
+
 	}
 
 	@Override
@@ -92,6 +88,18 @@ class CustomiseMouseListener implements MouseListener{
 		this.obj.setStartAnimation(true);
 		this.obj.setPressed(true);
 		this.obj.initRandomDots();
+
+		this.obj.setStopWatch(true);
+
+
+
+		int x=e.getX();
+		int y=e.getY();
+		this.obj.setxFocusCoordinate(x);
+		this.obj.setyFocusCoordinate(y);
+
+		this.obj.initRandomDots();
+
 	}
 
 	@Override
@@ -99,7 +107,7 @@ class CustomiseMouseListener implements MouseListener{
 		// TODO 自動生成されたメソッド・スタブ
 		this.obj.setPressed(false);
 		this.obj.setReleaseTime(System.currentTimeMillis());
-
+		this.obj.setStopWatch(false);
 	}
 
 	@Override
@@ -114,5 +122,4 @@ class CustomiseMouseListener implements MouseListener{
 
 
 }
-
 
