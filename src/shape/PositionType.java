@@ -7,6 +7,48 @@ public abstract class PositionType {
 	public  double deg; //角度
 	protected double rV;
 
+	protected int xCoordinate;
+	protected int yCoordinate;
+
+	protected int xLatestCoordinate = 0;
+	protected int yLatestCoordinate = 0;
+
+	public void setxLatestCoordinate(int xLatestCoordinate) {
+		this.xLatestCoordinate = xLatestCoordinate;
+	}
+
+	public void setyLatestCoordinate(int yLatestCoordinate) {
+		this.yLatestCoordinate = yLatestCoordinate;
+	}
+
+	public int getxLatestCoordinate() {
+
+		return xLatestCoordinate;
+	}
+
+	public int getyLatestCoordinate() {
+		return yLatestCoordinate;
+	}
+
+
+
+	public void setxCoordinate(int xCoordinate) {
+		this.xCoordinate = xCoordinate;
+	}
+
+	public void setyCoordinate(int yCoordinate) {
+		this.yCoordinate = yCoordinate;
+	}
+
+	public int getxCoordinate() {
+
+		return xCoordinate;
+	}
+
+	public int getyCoordinate() {
+		return yCoordinate;
+	}
+
 	public  double getR() {
 		return r;
 	}
@@ -57,7 +99,10 @@ public abstract class PositionType {
 
 		if(isPressed){
 			if(210 < Math.abs(this.getR())){
-				this.setrV(-1*this.getrV()*1.1);
+				this.setrV(-1*this.getrV()*1.01);
+
+				this.setxCoordinate(this.getxLatestCoordinate());
+				this.setyLatestCoordinate(this.getyLatestCoordinate());
 			}
 
 			if(this.rV < 0 && Math.abs(this.getR()) < 0.5){

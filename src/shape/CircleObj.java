@@ -6,8 +6,7 @@ import java.awt.Graphics;
 public class CircleObj extends PositionType {
 
 	private double radius = 10;
-	private int xCoordinate;
-	private int yCoordinate;
+
 
 	public double getRadius() {
 		return radius;

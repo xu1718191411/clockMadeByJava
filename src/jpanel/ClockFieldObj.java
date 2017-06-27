@@ -34,12 +34,10 @@ public class ClockFieldObj  extends JPanel  {
 	private int xFocusCoordinate;
 
 	public void setxFocusCoordinate(int xFocusCoordinate) {
-		System.out.println("set x xFocusCoordinate is..." + xFocusCoordinate);
 		this.xFocusCoordinate = xFocusCoordinate;
 	}
 
 	public void setyFocusCoordinate(int yFocusCoordinate) {
-		System.out.println("set y yFocusCoordinate is..." + yFocusCoordinate);
 		this.yFocusCoordinate = yFocusCoordinate;
 	}
 
@@ -248,6 +246,27 @@ public class ClockFieldObj  extends JPanel  {
 			randomRectangles.add(objs);
 		}
 
+	}
+
+
+	public void changeRandomDotsCoordinate(int x,int y){
+		for(int i=0;i<this.randomDots.size();i++){
+			//this.randomDots.get(i).setxCoordinate(x);
+			//this.randomDots.get(i).setyCoordinate(y);
+
+			this.randomDots.get(i).setxLatestCoordinate(x);
+			this.randomDots.get(i).setyLatestCoordinate(y);
+		}
+
+		for(int i=0;i<this.randomTriangles.size();i++){
+			this.randomTriangles.get(i).setxLatestCoordinate(x);
+			this.randomTriangles.get(i).setyLatestCoordinate(y);
+		}
+
+		for(int i=0;i<this.randomRectangles.size();i++){
+			this.randomRectangles.get(i).setxLatestCoordinate(x);
+			this.randomRectangles.get(i).setyLatestCoordinate(y);
+		}
 	}
 
 

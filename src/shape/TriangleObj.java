@@ -9,8 +9,6 @@ public class TriangleObj extends PositionType{
 	private double length;
 	private  static final double OFFSETPAD = - Math.PI/2;
 	private ArrayList<TriangleCoordinate> coordinates;
-	private int xCoordinate;
-	private int yCoordinate;
 
 	public TriangleObj(double randomR,double deg,double length,int _x,int _y){
 		this.r = randomR;
@@ -50,7 +48,6 @@ public class TriangleObj extends PositionType{
 	@Override
 	public void paintShape(Graphics screen, int xStartPoint, int yStartPoint) {
 		ArrayList<TriangleCoordinate> trianglesArr =  this.calculateCoordinate();
-
 
 		int xPoints[] = new int[trianglesArr.size()];
 		int yPoints[] = new int[trianglesArr.size()];

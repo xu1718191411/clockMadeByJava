@@ -1,17 +1,15 @@
 package after;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -28,7 +26,9 @@ public class execute {
 		frm.add(cf,BorderLayout.CENTER);
 
 		button.addMouseListener(new CustomiseMouseListener(cf));
+
 		cf.addMouseListener(new CustomiseMouseListener(cf));
+		cf.addMouseMotionListener(new MyMouseMotionListener(cf));
 
 		frm.add(button,BorderLayout.SOUTH);
 
@@ -79,7 +79,6 @@ class CustomiseMouseListener implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
-
 	}
 
 	@Override
@@ -88,18 +87,12 @@ class CustomiseMouseListener implements MouseListener{
 		this.obj.setStartAnimation(true);
 		this.obj.setPressed(true);
 		this.obj.initRandomDots();
-
 		this.obj.setStopWatch(true);
-
-
-
 		int x=e.getX();
 		int y=e.getY();
 		this.obj.setxFocusCoordinate(x);
 		this.obj.setyFocusCoordinate(y);
-
 		this.obj.initRandomDots();
-
 	}
 
 	@Override
@@ -123,3 +116,31 @@ class CustomiseMouseListener implements MouseListener{
 
 }
 
+
+class MyMouseMotionListener implements MouseMotionListener {
+
+	ClockFieldObj obj;
+
+	MyMouseMotionListener(ClockFieldObj _obj){
+		this.obj = _obj;
+	}
+
+	public void mouseMoved(MouseEvent e) {
+
+
+
+
+	}
+
+	public void mouseDragged(MouseEvent e) {
+		//do something
+
+		if(this.obj.isStartAnimation()){
+			int x=e.getX();
+			int y=e.getY();
+			this.obj.changeRandomDotsCgit oordinate(x,y);
+		}
+
+	}
+
+}

@@ -7,8 +7,6 @@ public class RectObj extends PositionType  {
 
 	private double l = 10;
 	private double h = 6;
-	private int xCoordinate;
-	private int yCoordinate;
 	private double angle = 0.0;
 	private double thete,gama;
 	private double rectR;
