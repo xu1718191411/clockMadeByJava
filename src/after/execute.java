@@ -127,9 +127,6 @@ class MyMouseMotionListener implements MouseMotionListener {
 
 	public void mouseMoved(MouseEvent e) {
 
-
-
-
 	}
 
 	public void mouseDragged(MouseEvent e) {
@@ -138,7 +135,10 @@ class MyMouseMotionListener implements MouseMotionListener {
 		if(this.obj.isStartAnimation()){
 			int x=e.getX();
 			int y=e.getY();
-			this.obj.changeRandomDotsCgit oordinate(x,y);
+
+
+
+			this.obj.changeRandomDotsCoordinate(x,y);
 		}
 
 	}

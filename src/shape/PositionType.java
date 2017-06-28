@@ -7,11 +7,11 @@ public abstract class PositionType {
 	public  double deg; //角度
 	protected double rV;
 
-	protected int xCoordinate;
-	protected int yCoordinate;
+	protected int xCoordinate = 250;
+	protected int yCoordinate = 250;
 
-	protected int xLatestCoordinate = 0;
-	protected int yLatestCoordinate = 0;
+	protected int xLatestCoordinate = 250;
+	protected int yLatestCoordinate = 250;
 
 	public void setxLatestCoordinate(int xLatestCoordinate) {
 		this.xLatestCoordinate = xLatestCoordinate;
@@ -22,15 +22,12 @@ public abstract class PositionType {
 	}
 
 	public int getxLatestCoordinate() {
-
 		return xLatestCoordinate;
 	}
 
 	public int getyLatestCoordinate() {
 		return yLatestCoordinate;
 	}
-
-
 
 	public void setxCoordinate(int xCoordinate) {
 		this.xCoordinate = xCoordinate;
@@ -41,11 +38,10 @@ public abstract class PositionType {
 	}
 
 	public int getxCoordinate() {
-
 		return xCoordinate;
 	}
 
-	public int getyCoordinate() {
+	public int getyCoordinate(){
 		return yCoordinate;
 	}
 
@@ -95,19 +91,29 @@ public abstract class PositionType {
 		int xStartPoint = (int)this.calcXPos();
 		int yStartPoint = (int)this.calcYPos();
 
+		this.xCoordinate = this.xLatestCoordinate;
+		this.yCoordinate = this.yLatestCoordinate;
+
 		paintShape(screen,xStartPoint,yStartPoint);
 
 		if(isPressed){
 			if(210 < Math.abs(this.getR())){
-				this.setrV(-1*this.getrV()*1.01);
-
-				this.setxCoordinate(this.getxLatestCoordinate());
-				this.setyLatestCoordinate(this.getyLatestCoordinate());
+				this.setrV(-1*this.getrV());
 			}
 
-			if(this.rV < 0 && Math.abs(this.getR()) < 0.5){
-				this.setrV(this.getrV()*0.6);
+
+			double distanceR = Math.sqrt(Math.pow((this.xLatestCoordinate - 250),2) + Math.pow((this.yLatestCoordinate - 250),2));
+
+			if(this.getrV() > 0){
+
+			}else{
+
 			}
+
+//
+//			if(this.rV < 0 && Math.abs(this.getR()) < 0.5){
+//				this.setrV(this.getrV());
+//			}
 
 			this.setR(this.getR() + this.getrV());
 

@@ -29,9 +29,11 @@ public class ClockFieldObj  extends JPanel  {
 
 	private static final long serialVersionUID = 1L;
 	private  double r = 210.0;
-	private int xCoordinate;
-	private int yCoordinate;
+	private int xCoordinate = 250;
+	private int yCoordinate = 250;
 	private int xFocusCoordinate;
+	private int yFocusCoordinate;
+
 
 	public void setxFocusCoordinate(int xFocusCoordinate) {
 		this.xFocusCoordinate = xFocusCoordinate;
@@ -48,8 +50,6 @@ public class ClockFieldObj  extends JPanel  {
 	public int getxFocusCoordinate() {
 		return xFocusCoordinate;
 	}
-
-	private int yFocusCoordinate;
 
 	private Image image;
 	private BufferedImage originalImage;
@@ -251,19 +251,25 @@ public class ClockFieldObj  extends JPanel  {
 
 	public void changeRandomDotsCoordinate(int x,int y){
 		for(int i=0;i<this.randomDots.size();i++){
-			//this.randomDots.get(i).setxCoordinate(x);
-			//this.randomDots.get(i).setyCoordinate(y);
+//			this.randomDots.get(i).setxCoordinate(x);
+//			this.randomDots.get(i).setyCoordinate(y);
 
 			this.randomDots.get(i).setxLatestCoordinate(x);
 			this.randomDots.get(i).setyLatestCoordinate(y);
 		}
 
 		for(int i=0;i<this.randomTriangles.size();i++){
+//			this.randomTriangles.get(i).setxCoordinate(x);
+//			this.randomTriangles.get(i).setyCoordinate(y);
+
 			this.randomTriangles.get(i).setxLatestCoordinate(x);
 			this.randomTriangles.get(i).setyLatestCoordinate(y);
 		}
 
 		for(int i=0;i<this.randomRectangles.size();i++){
+//			this.randomRectangles.get(i).setxCoordinate(x);
+//			this.randomRectangles.get(i).setyCoordinate(y);
+
 			this.randomRectangles.get(i).setxLatestCoordinate(x);
 			this.randomRectangles.get(i).setyLatestCoordinate(y);
 		}
