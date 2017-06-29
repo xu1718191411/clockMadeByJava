@@ -17,9 +17,11 @@ import pin.HourPin;
 import pin.MinutePin;
 import pin.PinType;
 import pin.SecondPin;
+import shape.ArrowObj;
 import shape.CircleObj;
 import shape.RectObj;
 import shape.TriangleObj;
+import shape.ArrowObj;
 
 public class ClockFieldObj  extends JPanel  {
 
@@ -56,6 +58,7 @@ public class ClockFieldObj  extends JPanel  {
 	private ArrayList<CircleObj> randomDots = new ArrayList<CircleObj>();
 	private ArrayList<TriangleObj> randomTriangles = new ArrayList<TriangleObj>();
 	private ArrayList<RectObj> randomRectangles = new ArrayList<RectObj>();
+	private ArrayList<ArrowObj> randomArrows = new ArrayList<>();
 
 	private long initialTime;
 	public int turn = 0;
@@ -246,6 +249,12 @@ public class ClockFieldObj  extends JPanel  {
 			randomRectangles.add(objs);
 		}
 
+		randomArrows.clear();
+		for(int i=0;i<7;i++){
+			ArrowObj objs = new ArrowObj(r);
+			this.randomArrows.add(objs);
+		}
+
 	}
 
 
@@ -273,6 +282,8 @@ public class ClockFieldObj  extends JPanel  {
 			this.randomRectangles.get(i).setxLatestCoordinate(x);
 			this.randomRectangles.get(i).setyLatestCoordinate(y);
 		}
+
+
 	}
 
 
@@ -289,6 +300,18 @@ public class ClockFieldObj  extends JPanel  {
 		for(RectObj rectangle:randomRectangles){
 			rectangle.draw(screen, currentTime, currentTime, this.isPressed, this.releaseTime, this.startAnimation);
 		}
+
+		System.out.println("------------");
+		for(ArrowObj arrow:randomArrows){
+
+			double degree = arrow.deg2rad();
+			arrow.setxCoordinate(arrow.getxCoordinate()+(int)(3*Math.cos(degree)));
+			arrow.setyCoordinate(arrow.getyCoordinate()-(int)(3*Math.sin(degree)));
+
+
+			arrow.paintShape(screen,this.xCoordinate,this.yCoordinate);
+		}
+		System.out.println("-------------");
 	}
 
 	public boolean isStartAnimation() {
